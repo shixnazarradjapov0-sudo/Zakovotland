@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZakovatLand — Matematik, Shaxmat & IT</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mint:#00D4AA; --lemon:#FFE135; --coral:#FF6B6B;
+  --violet:#7C3AED; --bg:#0D1035; --card:#161B4A;
+  --card2:#1E2460; --text:#E8EAFF; --muted:#8890C4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* STARS */
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 30%,#1a0a5e44 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 70%,#00d4aa22 0%,transparent 50%);}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle 3s infinite;}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.4);}}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 40px;background:rgba(13,16,53,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(0,212,170,.15);}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem;color:var(--mint);display:flex;align-items:center;gap:8px;}
+.logo span{color:var(--lemon);}
+.nav-links{display:flex;gap:24px;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s;}
+.nav-links a:hover{color:var(--mint);}
+
+/* TABS */
+.tab-bar{display:flex;gap:4px;background:rgba(255,255,255,.04);border-radius:14px;padding:4px;max-width:700px;margin:0 auto 40px;flex-wrap:wrap;}
+.tab-btn{flex:1;min-width:120px;padding:10px 16px;border:none;border-radius:10px;background:transparent;
+  color:var(--muted);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s;font-family:'Nunito',sans-serif;}
+.tab-btn.active{background:var(--card2);color:var(--text);box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.tab-btn:hover:not(.active){color:var(--text);}
+.tab-panel{display:none;animation:fadeUp .3s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* SECTION */
+section{position:relative;z-index:1;padding:72px 24px;}
+.section-label{text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);margin-bottom:10px;}
+.section-title{text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;margin-bottom:48px;}
+
+/* HERO */
+.hero{position:relative;z-index:1;text-align:center;padding:90px 24px 70px;}
+.hero-badge{display:inline-block;background:linear-gradient(135deg,var(--violet),#4F46E5);color:white;
+  font-size:.82rem;font-weight:700;padding:6px 18px;border-radius:999px;margin-bottom:22px;letter-spacing:.05em;}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:18px;}
+.hero h1 .a1{color:var(--mint);}.hero h1 .a2{color:var(--lemon);}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.7;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:linear-gradient(135deg,var(--mint),#00A882);color:#0D1035;font-weight:900;
+  font-size:1rem;padding:13px 30px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;
+  display:inline-block;box-shadow:0 8px 28px rgba(0,212,170,.35);transition:transform .15s,box-shadow .15s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,212,170,.5);}
+.btn-ghost{background:transparent;color:var(--text);font-weight:700;font-size:1rem;padding:13px 30px;
+  border-radius:12px;border:1.5px solid rgba(255,255,255,.2);cursor:pointer;text-decoration:none;
+  display:inline-block;transition:border-color .2s;}
+.btn-ghost:hover{border-color:var(--mint);}
+.floats{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.float-item{position:absolute;font-size:2rem;animation:fl 6s ease-in-out infinite;opacity:.65;}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(7deg);}}
+
+/* CARDS */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;max-width:1080px;margin:0 auto;}
+.card{background:var(--card);border:1.5px solid rgba(255,255,255,.07);border-radius:20px;padding:32px 28px;
+  transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 50px rgba(0,0,0,.4);}
+.card.math:hover{border-color:var(--coral);}.card.chess:hover{border-color:var(--lemon);}.card.it:hover{border-color:var(--mint);}
+.card-icon{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:18px;}
+.math .card-icon{background:rgba(255,107,107,.13);}.chess .card-icon{background:rgba(255,225,53,.1);}.it .card-icon{background:rgba(0,212,170,.1);}
+.card h3{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:9px;}
+.card p{color:var(--muted);line-height:1.6;margin-bottom:20px;font-size:.95rem;}
+.card-tags{display:flex;gap:7px;flex-wrap:wrap;}
+.tag{font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--muted);}
+
+/* GAMES SECTION */
+.games-bg{background:rgba(255,255,255,.018);}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;max-width:1080px;margin:0 auto;}
+.mini-game{background:var(--card);border-radius:20px;padding:26px;border:1.5px solid rgba(255,255,255,.07);}
+.mini-game h4{font-family:'Space Grotesk',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:4px;}
+.mini-game .sub{color:var(--muted);font-size:.82rem;margin-bottom:18px;}
+
+/* QUIZ */
+.quiz-q{font-size:1.9rem;font-weight:900;text-align:center;margin:14px 0;color:var(--lemon);}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.quiz-opt{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:var(--text);
+  font-weight:700;font-size:1rem;padding:11px;border-radius:10px;cursor:pointer;transition:all .15s;font-family:'Nunito',sans-serif;}
+.quiz-opt:hover{background:rgba(0,212,170,.13);border-color:var(--mint);}
+.quiz-opt.correct{background:rgba(0,212,170,.22);border-color:var(--mint);}
+.quiz-opt.wrong{background:rgba(255,107,107,.18);border-color:var(--coral);}
+.quiz-score{text-align:center;color:var(--mint);font-weight:700;font-size:.88rem;margin-bottom:10px;}
+
+/* CHESS */
+.chess-wrap{display:flex;flex-direction:column;align-items:center;}
+.chess-board{display:grid;grid-template-columns:repeat(8,1fr);width:240px;height:240px;
+  border:2px solid rgba(255,225,53,.25);border-radius:4px;overflow:hidden;margin:0 auto;}
+.chess-cell{display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;transition:background .12s;user-select:none;}
+.chess-cell.light{background:#F0D9B5;}.chess-cell.dark{background:#B58863;}
+.chess-cell.selected{background:rgba(255,225,53,.7) !important;}
+.chess-cell.move-hint{background:rgba(0,212,170,.55) !important;}
+.chess-cell.capture-hint{background:rgba(255,107,107,.55) !important;}
+.chess-status{text-align:center;color:var(--muted);font-size:.8rem;margin-top:10px;}
+.chess-btns{display:flex;gap:8px;margin-top:10px;}
+.chess-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--text);
+  border-radius:8px;padding:6px 14px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;}
+.chess-btn:hover{border-color:var(--mint);background:rgba(0,212,170,.1);}
+
+/* CODE */
+.code-area{background:#080c1a;border-radius:10px;padding:12px;font-family:'Courier New',monospace;
+  font-size:.78rem;color:#00D4AA;border:1px solid rgba(0,212,170,.18);min-height:75px;
+  margin-bottom:8px;white-space:pre;overflow:auto;outline:none;}
+.code-output{background:rgba(0,212,170,.04);border-radius:8px;padding:9px;font-family:'Courier New',monospace;
+  font-size:.82rem;color:var(--lemon);min-height:30px;border:1px solid rgba(0,212,170,.1);}
+.run-btn{background:linear-gradient(135deg,var(--violet),#4F46E5);color:white;border:none;
+  border-radius:8px;padding:7px 18px;font-weight:700;cursor:pointer;font-size:.82rem;margin-bottom:9px;
+  transition:transform .15s;font-family:'Nunito',sans-serif;}
+.run-btn:hover{transform:scale(1.04);}
+
+/* ── AI TUTOR ── */
+.ai-tutor-wrap{max-width:700px;margin:0 auto;}
+.ai-chat{background:var(--card);border-radius:16px;padding:20px;min-height:300px;max-height:400px;
+  overflow-y:auto;margin-bottom:14px;border:1.5px solid rgba(0,212,170,.12);display:flex;flex-direction:column;gap:12px;}
+.msg{padding:12px 16px;border-radius:12px;font-size:.92rem;line-height:1.6;max-width:85%;}
+.msg.ai{background:rgba(0,212,170,.1);border:1px solid rgba(0,212,170,.2);align-self:flex-start;}
+.msg.user{background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.3);align-self:flex-end;text-align:right;}
+.msg .sender{font-size:.72rem;font-weight:700;margin-bottom:4px;opacity:.7;}
+.ai-input-row{display:flex;gap:10px;}
+.ai-input{flex:1;background:var(--card);border:1.5px solid rgba(255,255,255,.1);color:var(--text);
+  border-radius:12px;padding:12px 16px;font-size:.92rem;font-family:'Nunito',sans-serif;outline:none;transition:border-color .2s;}
+.ai-input:focus{border-color:var(--mint);}
+.ai-send{background:linear-gradient(135deg,var(--mint),#00A882);color:#0D1035;border:none;border-radius:12px;
+  padding:12px 22px;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.92rem;transition:transform .15s;}
+.ai-send:hover{transform:scale(1.04);}
+.ai-send:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.ai-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.ai-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--muted);
+  border-radius:999px;padding:5px 14px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.ai-chip:hover{border-color:var(--mint);color:var(--text);}
+.typing{display:flex;align-items:center;gap:4px;padding:12px 16px;background:rgba(0,212,170,.08);
+  border:1px solid rgba(0,212,170,.15);border-radius:12px;align-self:flex-start;}
+.typing span{width:7px;height:7px;background:var(--mint);border-radius:50%;animation:dot 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,80%,100%{transform:scale(0);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+
+/* ── CHESS GAME ── */
+.chess-game-wrap{max-width:600px;margin:0 auto;}
+.chess-full-board{display:grid;grid-template-columns:repeat(8,1fr);width:360px;height:360px;
+  margin:0 auto;border:3px solid rgba(255,225,53,.3);border-radius:6px;overflow:hidden;}
+@media(max-width:420px){.chess-full-board{width:280px;height:280px;}}
+.chess-full-board .chess-cell{font-size:1.5rem;}
+@media(max-width:420px){.chess-full-board .chess-cell{font-size:1.1rem;}}
+.chess-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;
+  background:var(--card2);border-radius:12px;padding:12px 18px;}
+.chess-info .turn{font-weight:700;font-size:.9rem;}
+.chess-info .cap{color:var(--muted);font-size:.82rem;}
+.chess-action-btns{display:flex;gap:10px;margin-top:14px;justify-content:center;}
+
+/* ── VIDEO LESSONS ── */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;max-width:1080px;margin:0 auto;}
+.video-card{background:var(--card);border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,255,255,.07);
+  transition:transform .2s,box-shadow .2s;cursor:pointer;}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.4);}
+.video-thumb{position:relative;height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.3);opacity:0;transition:opacity .2s;}
+.video-card:hover .video-play{opacity:1;}
+.play-icon{width:52px;height:52px;background:rgba(255,255,255,.9);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.video-info{padding:18px;}
+.video-info h4{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;margin-bottom:6px;}
+.video-info p{color:var(--muted);font-size:.82rem;line-height:1.5;margin-bottom:12px;}
+.video-meta{display:flex;gap:12px;align-items:center;}
+.v-level{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;}
+.v-level.beginner{background:rgba(0,212,170,.15);color:var(--mint);}
+.v-level.medium{background:rgba(255,225,53,.12);color:var(--lemon);}
+.v-level.hard{background:rgba(255,107,107,.12);color:var(--coral);}
+.v-dur{color:var(--muted);font-size:.78rem;}
+
+/* VIDEO MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:20px;padding:32px;max-width:600px;width:100%;
+  border:1.5px solid rgba(255,255,255,.1);position:relative;animation:fadeUp .3s ease;}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.07);border:none;
+  color:var(--text);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;}
+.modal-thumb{font-size:5rem;text-align:center;margin-bottom:20px;padding:30px;
+  background:rgba(255,255,255,.03);border-radius:12px;}
+.modal h3{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:10px;}
+.modal p{color:var(--muted);line-height:1.65;margin-bottom:20px;font-size:.93rem;}
+.lesson-steps{display:flex;flex-direction:column;gap:8px;}
+.lesson-step{background:rgba(255,255,255,.04);border-radius:10px;padding:11px 16px;
+  display:flex;align-items:center;gap:12px;font-size:.88rem;}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--violet);display:flex;
+  align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
+
+/* ── ACHIEVEMENTS ── */
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;max-width:900px;margin:0 auto;}
+.ach-card{background:var(--card);border-radius:16px;padding:22px 16px;text-align:center;
+  border:1.5px solid rgba(255,255,255,.07);transition:transform .2s,border-color .2s;}
+.ach-card.unlocked:hover{transform:translateY(-4px);}
+.ach-card.locked{opacity:.45;filter:grayscale(.8);}
+.ach-card.unlocked.math-ach{border-color:rgba(255,107,107,.3);}
+.ach-card.unlocked.chess-ach{border-color:rgba(255,225,53,.3);}
+.ach-card.unlocked.it-ach{border-color:rgba(0,212,170,.3);}
+.ach-card.unlocked.special-ach{border-color:rgba(124,58,237,.4);}
+.ach-emoji{font-size:2.5rem;margin-bottom:12px;}
+.ach-name{font-weight:700;font-size:.9rem;margin-bottom:6px;}
+.ach-desc{color:var(--muted);font-size:.76rem;line-height:1.4;margin-bottom:10px;}
+.ach-badge{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px;}
+.ach-badge.unlocked-badge{background:rgba(0,212,170,.15);color:var(--mint);}
+.ach-badge.locked-badge{background:rgba(255,255,255,.06);color:var(--muted);}
+.ach-stats{display:flex;gap:16px;justify-content:center;margin-bottom:40px;}
+.ach-stat{text-align:center;background:var(--card2);border-radius:12px;padding:16px 24px;}
+.ach-stat .num{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--mint);}
+.ach-stat .lbl{color:var(--muted);font-size:.78rem;margin-top:2px;}
+
+/* LEADERBOARD */
+.leaderboard{max-width:580px;margin:0 auto;}
+.lb-row{display:flex;align-items:center;gap:14px;background:var(--card);border-radius:12px;
+  padding:13px 18px;margin-bottom:9px;border:1.5px solid rgba(255,255,255,.06);}
+.lb-rank{font-size:1.2rem;width:34px;text-align:center;}
+.lb-name{flex:1;font-weight:700;}
+.lb-score{color:var(--mint);font-weight:900;font-family:'Space Grotesk',sans-serif;}
+.lb-bar{height:4px;background:rgba(255,255,255,.06);border-radius:999px;margin-top:5px;overflow:hidden;}
+.lb-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--violet));}
+
+/* TIPS */
+.tips-wrap{max-width:760px;margin:0 auto;}
+.tip-card{background:linear-gradient(135deg,var(--card),rgba(124,58,237,.1));
+  border:1.5px solid rgba(124,58,237,.25);border-radius:20px;padding:36px;text-align:center;display:none;}
+.tip-card.active{display:block;animation:fadeUp .3s ease;}
+.tip-emoji{font-size:2.8rem;margin-bottom:14px;}
+.tip-card h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;color:var(--lemon);}
+.tip-card p{color:var(--muted);line-height:1.65;max-width:500px;margin:0 auto;}
+.tip-dots{display:flex;gap:10px;justify-content:center;margin-top:20px;}
+.tip-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:background .2s;}
+.tip-dot.active{background:var(--mint);}
+.tip-arrows{display:flex;gap:10px;justify-content:center;margin-top:16px;}
+.tip-btn{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);color:var(--text);
+  border-radius:8px;padding:7px 18px;cursor:pointer;font-weight:700;font-size:.85rem;transition:all .15s;font-family:'Nunito',sans-serif;}
+.tip-btn:hover{border-color:var(--mint);background:rgba(0,212,170,.08);}
+
+/* PROGRESS */
+.progress-section{max-width:660px;margin:0 auto;}
+.prog-item{margin-bottom:18px;}
+.prog-label{display:flex;justify-content:space-between;margin-bottom:5px;font-weight:700;font-size:.92rem;}
+.prog-bar{height:9px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:999px;transition:width 1.5s cubic-bezier(.4,0,.2,1);width:0;}
+
+/* FOOTER */
+footer{position:relative;z-index:1;text-align:center;padding:44px 24px;
+  border-top:1px solid rgba(255,255,255,.05);color:var(--muted);font-size:.88rem;}
+footer .footer-logo{color:var(--mint);font-weight:900;font-size:1.05rem;margin-bottom:7px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;z-index:999;background:var(--card2);
+  border:1.5px solid rgba(0,212,170,.3);border-radius:14px;padding:14px 20px;
+  font-weight:700;font-size:.9rem;box-shadow:0 8px 28px rgba(0,0,0,.4);
+  transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.4,0,.2,1);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@media(max-width:640px){
+  nav{padding:12px 16px;}
+  .nav-links{display:none;}
+  section{padding:56px 14px;}
+  .chess-full-board{width:288px;height:288px;}
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">🚀 Zakovat<span>Land</span></div>
+  <div class="nav-links">
+    <a href="#subjects">Fanlar</a>
+    <a href="#games">O'yinlar</a>
+    <a href="#ai-tutor">AI Ustoz</a>
+    <a href="#chess-game">Shaxmat</a>
+    <a href="#videos">Darslar</a>
+    <a href="#achievements">Yutuqlar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="floats">
+    <div class="float-item" style="left:7%;top:18%;animation-delay:0s">♟️</div>
+    <div class="float-item" style="left:86%;top:14%;animation-delay:1s">💻</div>
+    <div class="float-item" style="left:14%;top:63%;animation-delay:2s">🔢</div>
+    <div class="float-item" style="left:82%;top:58%;animation-delay:.5s">⭐</div>
+    <div class="float-item" style="left:50%;top:9%;animation-delay:1.5s">🤖</div>
+    <div class="float-item" style="left:4%;top:38%;animation-delay:2.5s">🏆</div>
+    <div class="float-item" style="left:92%;top:35%;animation-delay:.8s">🎓</div>
+  </div>
+  <div class="hero-badge">🌟 4 ta Yangi Funksiya Qo'shildi!</div>
+  <h1>O'yin orqali<br><span class="a1">Matematika</span>,<br><span class="a2">Shaxmat</span> & IT!</h1>
+  <p>AI ustoz bilan o'rgan, kompyuterga qarshi shaxmat o'yna, video darslar ko'r va medallar yig'!</p>
+  <div class="hero-btns">
+    <a href="#ai-tutor" class="btn-primary">🤖 AI Ustoz</a>
+    <a href="#chess-game" class="btn-ghost">♟️ Shaxmat O'yna</a>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects">
+  <div class="section-label">Nimalar O'rganasiz?</div>
+  <div class="section-title">3 ta Asosiy Fan 🎯</div>
+  <div class="grid3">
+    <div class="card math">
+      <div class="card-icon">🔢</div>
+      <h3 style="color:var(--coral)">Matematika</h3>
+      <p>Sonlar, geometriya, arifmetika — AI ustoz bilan tushuntirib beradi!</p>
+      <div class="card-tags"><span class="tag">➕ Arifmetika</span><span class="tag">📐 Geometriya</span><span class="tag">🧩 Mantiq</span></div>
+    </div>
+    <div class="card chess">
+      <div class="card-icon">♟️</div>
+      <h3 style="color:var(--lemon)">Shaxmat</h3>
+      <p>Kompyuterga qarshi o'yna, strategiya va taktikani ustalashtir!</p>
+      <div class="card-tags"><span class="tag">👑 Strategiya</span><span class="tag">🧠 Taktika</span><span class="tag">⚔️ Ochilish</span></div>
+    </div>
+    <div class="card it">
+      <div class="card-icon">💻</div>
+      <h3 style="color:var(--mint)">IT & Dasturlash</h3>
+      <p>Python, HTML/CSS, AI asoslari — kelajak sening qo'lingda!</p>
+      <div class="card-tags"><span class="tag">🐍 Python</span><span class="tag">🌐 Web</span><span class="tag">🤖 AI</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MINI GAMES -->
+<section id="games" class="games-bg">
+  <div class="section-label">Tez O'yinlar</div>
+  <div class="section-title">Hozir O'ynab Ko'r! 🎮</div>
+  <div class="games-grid">
+    <!-- QUIZ -->
+    <div class="mini-game">
+      <h4>🔢 Matematik Quiz</h4>
+      <div class="sub">To'g'ri javobni tanlang!</div>
+      <div class="quiz-score" id="scoreDisplay">🌟 Ball: 0</div>
+      <div class="quiz-q" id="quizQ">5 × 7 = ?</div>
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+    <!-- CHESS MINI -->
+    <div class="mini-game">
+      <h4>♟️ Harakatlarni Ko'rish</h4>
+      <div class="sub">Figurani bosib harakatini ko'ring!</div>
+      <div class="chess-wrap">
+        <div class="chess-board" id="chessBoardMini"></div>
+        <div class="chess-status" id="chessTipMini">Figurani bosing →</div>
+      </div>
+    </div>
+    <!-- CODE -->
+    <div class="mini-game">
+      <h4>💻 Mini Kod Muharriri</h4>
+      <div class="sub">Python kodni o'zgartir va ishga tushir!</div>
+      <div class="code-area" id="codeArea" contenteditable="true">name = "Zafar"
+age = 12
+print(f"Salom, {name}! Yoshingiz: {age}")</div>
+      <button class="run-btn" onclick="runCode()">▶ Ishga Tushirish</button>
+      <div class="code-output" id="codeOutput">// Natija shu yerda...</div>
+    </div>
+  </div>
+</section>
+
+<!-- AI TUTOR -->
+<section id="ai-tutor">
+  <div class="section-label">Sun'iy Intellekt</div>
+  <div class="section-title">🤖 AI Matematik Ustoz</div>
+  <div class="ai-tutor-wrap">
+    <div class="ai-chips">
+      <div class="ai-chip" onclick="askChip('2+2 nima?')">2+2 = ?</div>
+      <div class="ai-chip" onclick="askChip('Pi soni nima?')">π nima?</div>
+      <div class="ai-chip" onclick="askChip('Kvadrat ildiz nima?')">√ nima?</div>
+      <div class="ai-chip" onclick="askChip('Fibonacci ketma-ketligini tushuntir')">Fibonacci</div>
+      <div class="ai-chip" onclick="askChip('Pythagoras teoremasi nima?')">Pifagor</div>
+      <div class="ai-chip" onclick="askChip('15 × 8 ni hisoblashga yordam ber')">15 × 8</div>
+    </div>
+    <div class="ai-chat" id="aiChat">
+      <div class="msg ai">
+        <div class="sender">🤖 AI Ustoz</div>
+        Salom! Men matematik masalalaringizni yechishga yordam beraman. Savol bering yoki yuqoridagi mavzulardan birini tanlang! 😊
+      </div>
+    </div>
+    <div class="ai-input-row">
+      <input class="ai-input" id="aiInput" placeholder="Savolingizni yozing... masalan: 24 ÷ 6 = ?" onkeydown="if(event.key==='Enter')sendAI()">
+      <button class="ai-send" id="aiSendBtn" onclick="sendAI()">Yuborish →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHESS GAME -->
+<section id="chess-game" class="games-bg">
+  <div class="section-label">Kompyuterga Qarshi</div>
+  <div class="section-title">♟️ Shaxmat O'yini</div>
+  <div class="chess-game-wrap">
+    <div class="chess-info">
+      <div class="turn" id="chessGameStatus">🟢 Sizning navbatingiz (Oq)</div>
+      <div class="cap" id="chessCaptured">Olingan: —</div>
+    </div>
+    <div class="chess-full-board" id="chessGameBoard"></div>
+    <div class="chess-action-btns">
+      <button class="chess-btn" onclick="resetChessGame()">🔄 Qayta Boshlash</button>
+      <button class="chess-btn" onclick="undoMove()">↩️ Orqaga</button>
+      <button class="chess-btn" onclick="getHint()">💡 Maslahat</button>
+    </div>
+    <div class="chess-status" id="chessHint" style="margin-top:10px;color:var(--mint);"></div>
+  </div>
+</section>
+
+<!-- VIDEO LESSONS -->
+<section id="videos">
+  <div class="section-label">Video Darslar</div>
+  <div class="section-title">🎥 O'rganish Markazi</div>
+  <div class="video-grid">
+    <div class="video-card" onclick="openLesson(0)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(255,107,107,.15),rgba(255,107,107,.05))">
+        🔢<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>Ko'paytirish Jadvalini O'rganish</h4>
+        <p>1 dan 10 gacha ko'paytirish jadvalini oson va tez esda qoldiradigan usullar bilan o'rganamiz.</p>
+        <div class="video-meta"><span class="v-level beginner">Boshlang'ich</span><span class="v-dur">⏱ 12 daqiqa</span></div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openLesson(1)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(255,225,53,.12),rgba(255,225,53,.03))">
+        ♟️<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>Shaxmatning Asosiy Qoidalari</h4>
+        <p>Figuralar harakati, shoh va ferz qanday o'ynaydi, shoh-mat nima — barchasi tushuntiriladi.</p>
+        <div class="video-meta"><span class="v-level beginner">Boshlang'ich</span><span class="v-dur">⏱ 18 daqiqa</span></div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openLesson(2)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(0,212,170,.12),rgba(0,212,170,.03))">
+        🐍<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>Python bilan Birinchi Dasturim</h4>
+        <p>"Salom Dunyo!" dan boshlab o'zgaruvchilar, print va if-else gacha — boshlang'ichlar uchun.</p>
+        <div class="video-meta"><span class="v-level beginner">Boshlang'ich</span><span class="v-dur">⏱ 22 daqiqa</span></div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openLesson(3)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(124,58,237,.04))">
+        📐<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>Geometriya: Uchburchak va Doira</h4>
+        <p>Pifagor teoremasi, maydon va perimetr hisoblash — vizual animatsiyalar bilan.</p>
+        <div class="video-meta"><span class="v-level medium">O'rta</span><span class="v-dur">⏱ 25 daqiqa</span></div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openLesson(4)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(255,225,53,.1),rgba(255,107,107,.08))">
+        ⚔️<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>Shaxmat Taktikalari: Vilka va Qafas</h4>
+        <p>Ikki figurani bir vaqtda tahdid qilish (vilka) va raqibni qafasga tushirish usullari.</p>
+        <div class="video-meta"><span class="v-level medium">O'rta</span><span class="v-dur">⏱ 30 daqiqa</span></div>
+      </div>
+    </div>
+    <div class="video-card" onclick="openLesson(5)">
+      <div class="video-thumb" style="background:linear-gradient(135deg,rgba(0,212,170,.1),rgba(124,58,237,.1))">
+        🤖<div class="video-play"><div class="play-icon">▶</div></div>
+      </div>
+      <div class="video-info">
+        <h4>AI Qanday Ishlaydi?</h4>
+        <p>Neyron tarmoqlar, mashina o'qitish va ChatGPT qanday yaratilgan — bolalarga tushunarli qilib.</p>
+        <div class="video-meta"><span class="v-level hard">Murakkab</span><span class="v-dur">⏱ 35 daqiqa</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Muvaffaqiyatlar</div>
+  <div class="section-title">🏅 Yutuqlar va Medallar</div>
+  <div class="ach-stats">
+    <div class="ach-stat"><div class="num" id="achUnlocked">5</div><div class="lbl">Ochilgan</div></div>
+    <div class="ach-stat"><div class="num" style="color:var(--lemon)">12</div><div class="lbl">Jami</div></div>
+    <div class="ach-stat"><div class="num" style="color:var(--coral)">1,240</div><div class="lbl">XP Ball</div></div>
+  </div>
+  <div class="achievements-grid" id="achGrid"></div>
+</section>
+
+<!-- TIPS -->
+<section class="games-bg">
+  <div class="section-label">Bilasizmi?</div>
+  <div class="section-title">Qiziqarli Faktlar 🌍</div>
+  <div class="tips-wrap">
+    <div class="tip-card active"><div class="tip-emoji">♟️</div><h3>Shaxmat miyani kuchaytiradi!</h3><p>Tadqiqotlar shuni ko'rsatadiki, muntazam shaxmat o'ynagan bolalar matematikadan 17% yuqori natija ko'rsatadilar.</p></div>
+    <div class="tip-card"><div class="tip-emoji">🐍</div><h3>Python — dunyodagi №1 til!</h3><p>Google, Netflix va Instagram — barchasi Python ishlatadi. Siz ham bugundan boshlasangiz bo'ladi.</p></div>
+    <div class="tip-card"><div class="tip-emoji">🔢</div><h3>Fibonachchi tabiatda bor!</h3><p>1, 1, 2, 3, 5, 8, 13... Bu sonlar quyosh guli va dengiz chig'anoqlarida uchraydi.</p></div>
+    <div class="tip-card"><div class="tip-emoji">🤖</div><h3>AI — bu matematika!</h3><p>Sun'iy intellekt aslida matematika va statistikaning birlashuvi. Matematikani bilsangiz — AI yaratishingiz mumkin!</p></div>
+    <div class="tip-dots" id="tipDots"></div>
+    <div class="tip-arrows">
+      <button class="tip-btn" onclick="changeTip(-1)">← Oldingi</button>
+      <button class="tip-btn" onclick="changeTip(1)">Keyingi →</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section>
+  <div class="section-label">O'quv Yo'li</div>
+  <div class="section-title">Darajangiz 📊</div>
+  <div class="progress-section">
+    <div class="prog-item">
+      <div class="prog-label"><span>🔢 Matematika</span><span style="color:var(--coral)">72%</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#FF6B6B,#FF4444)" data-width="72"></div></div>
+    </div>
+    <div class="prog-item">
+      <div class="prog-label"><span>♟️ Shaxmat</span><span style="color:var(--lemon)">48%</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#FFE135,#FFA500)" data-width="48"></div></div>
+    </div>
+    <div class="prog-item">
+      <div class="prog-label"><span>💻 IT & Dasturlash</span><span style="color:var(--mint)">61%</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="background:linear-gradient(90deg,#00D4AA,#7C3AED)" data-width="61"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section class="games-bg">
+  <div class="section-label">Eng Yaxshilar</div>
+  <div class="section-title">🏆 Reyting Jadvali</div>
+  <div class="leaderboard">
+    <div class="lb-row"><div class="lb-rank">🥇</div><div style="flex:1"><div class="lb-name">Sardor A.</div><div class="lb-bar"><div class="lb-fill" style="width:95%"></div></div></div><div class="lb-score">9,840</div></div>
+    <div class="lb-row"><div class="lb-rank">🥈</div><div style="flex:1"><div class="lb-name">Malika T.</div><div class="lb-bar"><div class="lb-fill" style="width:87%"></div></div></div><div class="lb-score">8,520</div></div>
+    <div class="lb-row"><div class="lb-rank">🥉</div><div style="flex:1"><div class="lb-name">Jasur N.</div><div class="lb-bar"><div class="lb-fill" style="width:79%"></div></div></div><div class="lb-score">7,710</div></div>
+    <div class="lb-row"><div class="lb-rank">4️⃣</div><div style="flex:1"><div class="lb-name">Nilufar K.</div><div class="lb-bar"><div class="lb-fill" style="width:68%"></div></div></div><div class="lb-score">6,300</div></div>
+    <div class="lb-row"><div class="lb-rank">5️⃣</div><div style="flex:1"><div class="lb-name">Azizbek M.</div><div class="lb-bar"><div class="lb-fill" style="width:55%"></div></div></div><div class="lb-score">5,100</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">🚀 ZakovatLand</div>
+  <p>Bolalar uchun qiziqarli, bepul va xavfsiz ta'lim platformasi 🌟</p>
+  <p style="margin-top:7px;font-size:.78rem;">© 2026 ZakovatLand — Bilim kelajakning kaliti!</p>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="lessonModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLesson()">✕</button>
+    <div class="modal-thumb" id="modalThumb">🔢</div>
+    <h3 id="modalTitle">Dars nomi</h3>
+    <p id="modalDesc">Dars tavsifi</p>
+    <div class="lesson-steps" id="modalSteps"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">🏅 Yangi yutuq!</div>
+
+<script>
+// ══════════════════════════════════
+// STARS
+// ══════════════════════════════════
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement('div'); s.className = 'star';
+  const sz = Math.random()*2.4+.5;
+  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s`;
+  starsEl.appendChild(s);
+}
+
+// ══════════════════════════════════
+// TOAST
+// ══════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══════════════════════════════════
+// MATH QUIZ
+// ══════════════════════════════════
+const questions = [
+  {q:'5 × 7 = ?',a:35},{q:'8 + 24 = ?',a:32},{q:'√64 = ?',a:8},
+  {q:'100 ÷ 4 = ?',a:25},{q:'3³ = ?',a:27},{q:'15 × 6 = ?',a:90},
+  {q:'144 ÷ 12 = ?',a:12},{q:'7 × 9 = ?',a:63},{q:'2⁸ = ?',a:256},
+  {q:'√144 = ?',a:12},{q:'50 × 3 = ?',a:150},{q:'200 ÷ 8 = ?',a:25},
+];
+let qIdx=0, quizScore=0, answered=false;
+function genOpts(c){
+  const s=new Set([c]);
+  while(s.size<4){const v=c+Math.floor(Math.random()*20-10);if(v!==c&&v>0)s.add(v);}
+  return [...s].sort(()=>Math.random()-.5);
+}
+function loadQ(){
+  answered=false;
+  const q=questions[qIdx%questions.length];
+  document.getElementById('quizQ').textContent=q.q;
+  const c=document.getElementById('quizOpts'); c.innerHTML='';
+  genOpts(q.a).forEach(o=>{
+    const b=document.createElement('button'); b.className='quiz-opt'; b.textContent=o;
+    b.onclick=()=>checkAns(b,o,q.a); c.appendChild(b);
+  });
+}
+function checkAns(btn,chosen,correct){
+  if(answered)return; answered=true;
+  if(chosen===correct){btn.classList.add('correct');quizScore++;
+    document.getElementById('scoreDisplay').textContent=`🌟 Ball: ${quizScore}`;
+    if(quizScore===5)unlockAch('quiz5');
+    if(quizScore===10)unlockAch('quiz10');
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt').forEach(b=>{if(parseInt(b.textContent)===correct)b.classList.add('correct');});
+  }
+  setTimeout(()=>{qIdx++;loadQ();},1100);
+}
+loadQ();
+
+// ══════════════════════════════════
+// MINI CHESS BOARD (piece mover)
+// ══════════════════════════════════
+const miniPieces = {
+  '0-0':'♜','0-1':'♞','0-2':'♝','0-3':'♛','0-4':'♚','0-5':'♝','0-6':'♞','0-7':'♜',
+  '1-0':'♟','1-1':'♟','1-2':'♟','1-3':'♟','1-4':'♟','1-5':'♟','1-6':'♟','1-7':'♟',
+  '6-0':'♙','6-1':'♙','6-2':'♙','6-3':'♙','6-4':'♙','6-5':'♙','6-6':'♙','6-7':'♙',
+  '7-0':'♖','7-1':'♘','7-2':'♗','7-3':'♕','7-4':'♔','7-5':'♗','7-6':'♘','7-7':'♖',
+};
+let miniSel=null;
+const miniBoard=document.getElementById('chessBoardMini');
+for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+  const el=document.createElement('div');
+  el.className=`chess-cell ${(r+c)%2===0?'light':'dark'}`;
+  el.dataset.r=r; el.dataset.c=c;
+  if(miniPieces[`${r}-${c}`])el.textContent=miniPieces[`${r}-${c}`];
+  el.addEventListener('click',()=>{
+    miniBoard.querySelectorAll('.chess-cell').forEach(x=>x.classList.remove('selected','move-hint'));
+    if(el.textContent){
+      el.classList.add('selected'); miniSel={r,c,p:el.textContent};
+      const info={
+        '♕':'Ferz: istalgan yo\'nalishda istalgan masofaga boradi!',
+        '♔':'Shoh: har tomonga 1 katak boradi.',
+        '♖':'Rok: gorizontal va vertikal boradi.',
+        '♗':'Fil: diagonal boradi.',
+        '♘':'Ot: L shaklida sakraydi.',
+        '♙':'Piyoda: oldinga boradi, qiyshiq uradi.',
+        '♛':'Ferz (q): istalgan yo\'nalishda!',
+        '♚':'Shoh (q): har tomonga 1 katak.',
+        '♜':'Rok (q): gorizontal/vertikal.',
+        '♝':'Fil (q): diagonal.',
+        '♞':'Ot (q): L shakli.',
+        '♟':'Piyoda (q): oldinga boradi.',
+      };
+      document.getElementById('chessTipMini').textContent=info[el.textContent]||'Figura tanlandi';
+    }
+  });
+  miniBoard.appendChild(el);
+}
+
+// ══════════════════════════════════
+// CODE RUNNER
+// ══════════════════════════════════
+function runCode(){
+  const code=document.getElementById('codeArea').textContent;
+  const out=document.getElementById('codeOutput');
+  try{
+    const nm=code.match(/name\s*=\s*["'](.+?)["']/);
+    const ag=code.match(/age\s*=\s*(\d+)/);
+    const pr=code.match(/print\(f?["'`](.+?)["'`]\)/);
+    let result='Kod bajarildi!';
+    if(nm&&ag&&pr){let m=pr[1];result=m.replace('{name}',nm[1]).replace('{age}',ag[1]);}
+    else if(pr){result=pr[1];}
+    out.textContent='✅ '+result; out.style.color='#00D4AA';
+    unlockAch('coder');
+  }catch(e){out.textContent='❌ Xato: kodni tekshiring!';out.style.color='#FF6B6B';}
+}
+
+// ══════════════════════════════════
+// AI TUTOR
+// ══════════════════════════════════
+const API_URL='https://api.anthropic.com/v1/messages';
+const systemPrompt=`Siz ZakovatLand ta'lim platformasining AI matematik ustoziSIZ. 
+Siz 7-16 yoshli o'zbek bolalariga matematika, shaxmat va IT sohasini o'rgatishga yordam berasiz.
+Har doim:
+- O'zbek tilida javob bering
+- Tushunarli, qiziqarli va do'stona tonda gapiring
+- Misollar va tushuntirishlar bering
+- Bolalar uchun mos til ishlating
+- Matematik formulalar uchun oddiy yozuv ishlating
+- Javoblarni qisqa va aniq qiling (2-4 qator)
+- Emoji ishlating 🌟`;
+
+let aiHistory=[];
+let aiTyping=false;
+
+function askChip(q){
+  document.getElementById('aiInput').value=q;
+  sendAI();
+}
+
+async function sendAI(){
+  if(aiTyping)return;
+  const input=document.getElementById('aiInput');
+  const msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  const chat=document.getElementById('aiChat');
+  const btn=document.getElementById('aiSendBtn');
+
+  // user message
+  const userDiv=document.createElement('div');
+  userDiv.className='msg user';
+  userDiv.innerHTML=`<div class="sender">👤 Siz</div>${msg}`;
+  chat.appendChild(userDiv);
+
+  // typing indicator
+  const typingDiv=document.createElement('div');
+  typingDiv.className='typing';
+  typingDiv.innerHTML='<span></span><span></span><span></span>';
+  chat.appendChild(typingDiv);
+  chat.scrollTop=chat.scrollHeight;
+
+  aiTyping=true; btn.disabled=true;
+  aiHistory.push({role:'user',content:msg});
+
+  try{
+    const res=await fetch(API_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        system:systemPrompt,
+        messages:aiHistory
+      })
+    });
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'Kechirasiz, javob bera olmadim.';
+    aiHistory.push({role:'assistant',content:reply});
+
+    typingDiv.remove();
+    const aiDiv=document.createElement('div');
+    aiDiv.className='msg ai';
+    aiDiv.innerHTML=`<div class="sender">🤖 AI Ustoz</div>${reply.replace(/\n/g,'<br>')}`;
+    chat.appendChild(aiDiv);
+    chat.scrollTop=chat.scrollHeight;
+    unlockAch('ai_asked');
+  }catch(e){
+    typingDiv.remove();
+    const errDiv=document.createElement('div');
+    errDiv.className='msg ai';
+    errDiv.innerHTML=`<div class="sender">🤖 AI Ustoz</div>Tarmoq xatosi. Iltimos qayta urinib ko'ring! 🙏`;
+    chat.appendChild(errDiv);
+    chat.scrollTop=chat.scrollHeight;
+  }
+  aiTyping=false; btn.disabled=false;
+}
+
+// ══════════════════════════════════
+// CHESS GAME (vs Computer)
+// ══════════════════════════════════
+// Piece values: P=1,N=3,B=3,R=5,Q=9,K=100
+const PIECES={
+  wP:'♙',wN:'♘',wB:'♗',wR:'♖',wQ:'♕',wK:'♔',
+  bP:'♟',bN:'♞',bB:'♝',bR:'♜',bQ:'♛',bK:'♚'
+};
+const VALS={P:1,N:3,B:3,R:5,Q:9,K:100};
+
+let cgBoard=[], cgSel=null, cgTurn='w', cgMoveHistory=[], cgCaptured={w:[],b:[]};
+
+function initCGBoard(){
+  cgBoard=[
+    ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+    ['bP','bP','bP','bP','bP','bP','bP','bP'],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    ['wP','wP','wP','wP','wP','wP','wP','wP'],
+    ['wR','wN','wB','wQ','wK','wB','wN','wR'],
+  ];
+  cgSel=null; cgTurn='w'; cgMoveHistory=[]; cgCaptured={w:[],b:[]};
+  renderCGBoard();
+  document.getElementById('chessGameStatus').textContent='🟢 Sizning navbatingiz (Oq)';
+  document.getElementById('chessCaptured').textContent='Olingan: —';
+  document.getElementById('chessHint').textContent='';
+}
+
+function renderCGBoard(){
+  const el=document.getElementById('chessGameBoard');
+  el.innerHTML='';
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const cell=document.createElement('div');
+    cell.className=`chess-cell ${(r+c)%2===0?'light':'dark'}`;
+    cell.dataset.r=r; cell.dataset.c=c;
+    if(cgBoard[r][c])cell.textContent=PIECES[cgBoard[r][c]]||'';
+    if(cgSel&&cgSel.r===r&&cgSel.c===c)cell.classList.add('selected');
+    cell.addEventListener('click',()=>handleCGClick(r,c));
+    el.appendChild(cell);
+  }
+  if(cgSel){
+    const moves=getLegalMoves(cgSel.r,cgSel.c,cgTurn);
+    moves.forEach(([mr,mc])=>{
+      const idx=mr*8+mc;
+      const cells=el.querySelectorAll('.chess-cell');
+      if(cgBoard[mr][mc]){cells[idx].classList.add('capture-hint');}
+      else{cells[idx].classList.add('move-hint');}
+    });
+  }
+}
+
+function getColor(p){if(!p)return null;return p[0];}
+function opp(c){return c==='w'?'b':'w';}
+
+function getRawMoves(r,c){
+  const p=cgBoard[r][c]; if(!p)return [];
+  const col=p[0], type=p[1], moves=[];
+  const add=(nr,nc)=>{if(nr>=0&&nr<8&&nc>=0&&nc<8)moves.push([nr,nc]);};
+  const slide=(dr,dc)=>{let nr=r+dr,nc=c+dc;while(nr>=0&&nr<8&&nc>=0&&nc<8){if(cgBoard[nr][nc]){if(getColor(cgBoard[nr][nc])!==col)moves.push([nr,nc]);break;}moves.push([nr,nc]);nr+=dr;nc+=dc;}};
+
+  if(type==='P'){
+    const dir=col==='w'?-1:1;
+    if(r+dir>=0&&r+dir<8&&!cgBoard[r+dir][c])moves.push([r+dir,c]);
+    if((col==='w'&&r===6)||(col==='b'&&r===1)){if(!cgBoard[r+dir][c]&&!cgBoard[r+2*dir][c])moves.push([r+2*dir,c]);}
+    [-1,1].forEach(dc=>{if(c+dc>=0&&c+dc<8&&cgBoard[r+dir]&&cgBoard[r+dir][c+dc]&&getColor(cgBoard[r+dir][c+dc])!==col)moves.push([r+dir,c+dc]);});
+  }
+  else if(type==='N'){[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>{const nr=r+dr,nc=c+dc;if(nr>=0&&nr<8&&nc>=0&&nc<8&&getColor(cgBoard[nr][nc])!==col)moves.push([nr,nc]);});}
+  else if(type==='B'){[[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='R'){[[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='Q'){[[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='K'){[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>{const nr=r+dr,nc=c+dc;if(nr>=0&&nr<8&&nc>=0&&nc<8&&getColor(cgBoard[nr][nc])!==col)moves.push([nr,nc]);});}
+  return moves;
+}
+
+function getLegalMoves(r,c,turn){
+  const raw=getRawMoves(r,c);
+  return raw.filter(([nr,nc])=>{
+    const saved=cgBoard[nr][nc]; cgBoard[nr][nc]=cgBoard[r][c]; cgBoard[r][c]=null;
+    const inCheck=isInCheck(turn);
+    cgBoard[r][c]=cgBoard[nr][nc]; cgBoard[nr][nc]=saved;
+    return !inCheck;
+  });
+}
+
+function isInCheck(col){
+  let kr=-1,kc=-1;
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(cgBoard[r][c]===col+'K'){kr=r;kc=c;}
+  if(kr<0)return true;
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    if(getColor(cgBoard[r][c])===opp(col)){
+      if(getRawMoves(r,c).some(([nr,nc])=>nr===kr&&nc===kc))return true;
+    }
+  }
+  return false;
+}
+
+function handleCGClick(r,c){
+  if(cgTurn!=='w')return;
+  const piece=cgBoard[r][c];
+  if(cgSel){
+    const moves=getLegalMoves(cgSel.r,cgSel.c,'w');
+    const valid=moves.find(([mr,mc])=>mr===r&&mc===c);
+    if(valid){
+      makeMove(cgSel.r,cgSel.c,r,c,'w');
+      cgSel=null; cgTurn='b';
+      document.getElementById('chessGameStatus').textContent='⚫ Kompyuter o\'ylayapti...';
+      renderCGBoard();
+      setTimeout(()=>computerMove(),700);
+      return;
+    }
+    cgSel=null;
+  }
+  if(piece&&getColor(piece)==='w'){cgSel={r,c};}
+  renderCGBoard();
+}
+
+function makeMove(fr,fc,tr,tc,col){
+  const captured=cgBoard[tr][tc];
+  if(captured)cgCaptured[col].push(captured);
+  cgMoveHistory.push({fr,fc,tr,tc,moved:cgBoard[fr][fc],cap:captured,capArr:[...cgCaptured.w],[...cgCaptured.b]});
+  cgBoard[tr][tc]=cgBoard[fr][fc]; cgBoard[fr][fc]=null;
+  // promotion
+  if(cgBoard[tr][tc]==='wP'&&tr===0)cgBoard[tr][tc]='wQ';
+  if(cgBoard[tr][tc]==='bP'&&tr===7)cgBoard[tr][tc]='bQ';
+  updateCaptured();
+}
+
+function updateCaptured(){
+  const all=[...cgCaptured.w,...cgCaptured.b];
+  document.getElementById('chessCaptured').textContent=all.length?'Olingan: '+all.map(p=>PIECES[p]).join(''):'Olingan: —';
+}
+
+function computerMove(){
+  // Simple: pick random legal move, prefer captures
+  const allMoves=[];
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
+    if(getColor(cgBoard[r][c])==='b'){
+      getLegalMoves(r,c,'b').forEach(([nr,nc])=>allMoves.push({fr:r,fc:c,tr:nr,tc:nc,cap:cgBoard[nr][nc]}));
+    }
+  }
+  if(allMoves.length===0){
+    if(isInCheck('b')){document.getElementById('chessGameStatus').textContent='🎉 Siz yutdingiz! Shoh-mat!';unlockAch('chess_win');}
+    else{document.getElementById('chessGameStatus').textContent='🤝 Pat (Durang)!';}
+    return;
+  }
+  // Prefer captures, else random
+  const captures=allMoves.filter(m=>m.cap);
+  const mv=captures.length?captures[Math.floor(Math.random()*captures.length)]:allMoves[Math.floor(Math.random()*allMoves.length)];
+  makeMove(mv.fr,mv.fc,mv.tr,mv.tc,'b');
+  cgTurn='w';
+  if(isInCheck('w')){
+    // check if checkmate
+    let any=false;
+    for(let r=0;r<8&&!any;r++)for(let c=0;c<8&&!any;c++)if(getColor(cgBoard[r][c])==='w'&&getLegalMoves(r,c,'w').length)any=true;
+    if(!any){document.getElementById('chessGameStatus').textContent='😔 Shoh-mat! Kompyuter yutdi.';renderCGBoard();return;}
+    document.getElementById('chessGameStatus').textContent='⚠️ Sizning navbatingiz — Shoh tahdid ostida!';
+  } else {
+    document.getElementById('chessGameStatus').textContent='🟢 Sizning navbatingiz (Oq)';
+  }
+  renderCGBoard();
+}
+
+function resetChessGame(){initCGBoard();showToast('♟️ O\'yin qayta boshlandi!');}
+
+function undoMove(){
+  if(cgMoveHistory.length<2)return;
+  // undo computer + player move
+  for(let i=0;i<2&&cgMoveHistory.length;i++){
+    const mv=cgMoveHistory.pop();
+    cgBoard[mv.fr][mv.fc]=mv.moved; cgBoard[mv.tr][mv.tc]=mv.cap||null;
+  }
+  cgCaptured={w:[],b:[]}; updateCaptured();
+  cgTurn='w'; cgSel=null;
+  document.getElementById('chessGameStatus').textContent='🟢 Sizning navbatingiz (Oq)';
+  renderCGBoard();
+}
+
+function getHint(){
+  const moves=[];
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++)if(getColor(cgBoard[r][c])==='w')getLegalMoves(r,c,'w').forEach(([nr,nc])=>moves.push({fr:r,fc:c,tr:nr,tc:nc}));
+  if(!moves.length){document.getElementById('chessHint').textContent='Hech qanday harakat yo\'q!';return;}
+  const m=moves[Math.floor(Math.random()*moves.length)];
+  const cols=['a','b','c','d','e','f','g','h'];
+  document.getElementById('chessHint').textContent=`💡 Maslahat: ${PIECES[cgBoard[m.fr][m.fc]]} ${cols[m.fc]}${8-m.fr} → ${cols[m.tc]}${8-m.tr}`;
+}
+
+initCGBoard();
+
+// ══════════════════════════════════
+// VIDEO LESSONS
+// ══════════════════════════════════
+const lessons=[
+  {emoji:'🔢',bg:'#FF6B6B',title:'Ko\'paytirish Jadvalini O\'rganish',
+   desc:'1 dan 10 gacha ko\'paytirish jadvalini oson usullar bilan o\'rganamiz. Qo\'shib ko\'paytirishdan boshlaymiz!',
+   steps:['Birlar jadvali (1×1 dan 1×10)','"Barmoq triki" bilan 9 jadvali','Umumiy jadval namunalari','Tezlikni oshirish mashqlari']},
+  {emoji:'♟️',bg:'#FFE135',title:'Shaxmatning Asosiy Qoidalari',
+   desc:'Figuralar harakati, shoh va ferz qanday o\'ynaydi — boshlang\'ichlar uchun to\'liq qo\'llanma.',
+   steps:['Taxtani tanishtiramiz (8×8)','Har figuraning harakati','Shoh-mat nima?','Birinchi o\'yiningiz']},
+  {emoji:'🐍',bg:'#00D4AA',title:'Python bilan Birinchi Dasturim',
+   desc:'"Salom Dunyo!" dan boshlab o\'zgaruvchilar va shartlargacha — boshlang\'ichlar uchun.',
+   steps:['Python o\'rnatish','print() funksiyasi','O\'zgaruvchilar va turlar','if-else shartlari']},
+  {emoji:'📐',bg:'#7C3AED',title:'Geometriya: Uchburchak va Doira',
+   desc:'Pifagor teoremasi, maydon va perimetr hisoblash — animatsiyalar bilan tushuntiriladi.',
+   steps:['Uchburchak turlari','Pifagor a²+b²=c²','Doira: π r²','Amaliy masalalar']},
+  {emoji:'⚔️',bg:'#FF6B6B',title:'Shaxmat Taktikalari: Vilka',
+   desc:'Ikki figurani bir vaqtda tahdid qilish (vilka) va raqibni qafasga tushirish usullari.',
+   steps:['Vilka nima?','Ot vilkasi','Ferz vilkasi','Amaliy misollar']},
+  {emoji:'🤖',bg:'#4F46E5',title:'AI Qanday Ishlaydi?',
+   desc:'Neyron tarmoqlar va mashina o\'qitish — bolalarga tushunarli qilib tushuntiriladi.',
+   steps:['AI tarixi','Neyron tarmoqlar','Mashina o\'qitish','O\'zingiz AI yarating']},
+];
+
+function openLesson(i){
+  const l=lessons[i];
+  document.getElementById('modalThumb').textContent=l.emoji;
+  document.getElementById('modalThumb').style.background=`linear-gradient(135deg,${l.bg}22,${l.bg}08)`;
+  document.getElementById('modalTitle').textContent=l.title;
+  document.getElementById('modalDesc').textContent=l.desc;
+  const stepsEl=document.getElementById('modalSteps');
+  stepsEl.innerHTML=l.steps.map((s,j)=>`<div class="lesson-step"><div class="step-num">${j+1}</div>${s}</div>`).join('');
+  document.getElementById('lessonModal').classList.add('open');
+  unlockAch('video_watched');
+}
+function closeLesson(){document.getElementById('lessonModal').classList.remove('open');}
+document.getElementById('lessonModal').addEventListener('click',function(e){if(e.target===this)closeLesson();});
+
+// ══════════════════════════════════
+// ACHIEVEMENTS
+// ══════════════════════════════════
+const allAchs=[
+  {id:'quiz5',emoji:'⭐',name:'Matematik Yulduz',desc:'Quizda 5 ball to\'pla',cat:'math-ach',unlocked:false},
+  {id:'quiz10',emoji:'🌟',name:'Super Matematik',desc:'Quizda 10 ball to\'pla',cat:'math-ach',unlocked:false},
+  {id:'coder',emoji:'💻',name:'Birinchi Dastur',desc:'Kodni muvaffaqiyatli ishga tushir',cat:'it-ach',unlocked:true},
+  {id:'chess_win',emoji:'♟️',name:'Shaxmat Ustasi',desc:'Kompyuterga qarshi yut',cat:'chess-ach',unlocked:false},
+  {id:'ai_asked',emoji:'🤖',name:'AI Suhbat',desc:'AI ustozga savol ber',cat:'it-ach',unlocked:false},
+  {id:'video_watched',emoji:'🎥',name:'Ilm Izlovchi',desc:'Birinchi darsni ko\'r',cat:'special-ach',unlocked:false},
+  {id:'explorer',emoji:'🗺️',name:'Kashfiyotchi',desc:'Barcha bo\'limlarni ochib ko\'r',cat:'special-ach',unlocked:true},
+  {id:'early_bird',emoji:'🌅',name:'Erta Turuvchi',desc:'Saytga tong kirib kir',cat:'special-ach',unlocked:true},
+  {id:'perfectionist',emoji:'💎',name:'Mukammallik',desc:'Quizni 100% to\'g\'ri yechish',cat:'math-ach',unlocked:false},
+  {id:'chess_100',emoji:'🏰',name:'Shaxmat 100',desc:'100 ta harakat qil',cat:'chess-ach',unlocked:false},
+  {id:'polyglot',emoji:'🌐',name:'Poliglot',desc:'HTML va Python yaz',cat:'it-ach',unlocked:true},
+  {id:'legend',emoji:'👑',name:'Afsona',desc:'Barcha yutuqlarni och',cat:'special-ach',unlocked:false},
+];
+
+function renderAchs(){
+  const g=document.getElementById('achGrid'); g.innerHTML='';
+  let cnt=0;
+  allAchs.forEach(a=>{
+    if(a.unlocked)cnt++;
+    const d=document.createElement('div');
+    d.className=`ach-card ${a.unlocked?'unlocked '+a.cat:'locked'}`;
+    d.innerHTML=`<div class="ach-emoji">${a.emoji}</div><div class="ach-name">${a.name}</div><div class="ach-desc">${a.desc}</div><span class="ach-badge ${a.unlocked?'unlocked-badge':'locked-badge'}">${a.unlocked?'✅ Ochildi':'🔒 Qulfli'}</span>`;
+    g.appendChild(d);
+  });
+  document.getElementById('achUnlocked').textContent=cnt;
+}
+
+function unlockAch(id){
+  const a=allAchs.find(x=>x.id===id);
+  if(a&&!a.unlocked){
+    a.unlocked=true;
+    renderAchs();
+    showToast(`🏅 Yangi yutuq: ${a.emoji} ${a.name}`);
+  }
+}
+renderAchs();
+
+// ══════════════════════════════════
+// TIPS CAROUSEL
+// ══════════════════════════════════
+let tipIdx=0; const totalTips=4;
+const dotsC=document.getElementById('tipDots');
+for(let i=0;i<totalTips;i++){
+  const d=document.createElement('div');
+  d.className=`tip-dot${i===0?' active':''}`;
+  d.onclick=()=>showTip(i); dotsC.appendChild(d);
+}
+function showTip(i){
+  document.querySelectorAll('.tip-card').forEach((c,j)=>c.classList.toggle('active',j===i));
+  document.querySelectorAll('.tip-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+  tipIdx=i;
+}
+function changeTip(d){tipIdx=(tipIdx+d+totalTips)%totalTips;showTip(tipIdx);}
+setInterval(()=>changeTip(1),5500);
+
+// ══════════════════════════════════
+// PROGRESS BARS
+// ══════════════════════════════════
+const progObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('.prog-fill').forEach(f=>{f.style.width=f.dataset.width+'%';});});
+},{threshold:.3});
+const ps=document.querySelector('.progress-section');
+if(ps)progObs.observe(ps);
+
+// ══════════════════════════════════
+// SMOOTH SCROLL
+// ══════════════════════════════════
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});});
+});
+</script>
+</body>
+</html>
